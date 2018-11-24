@@ -7,6 +7,8 @@
     <title>App</title>
 </head>
 <body>
+    <input type="text" id="filter" placeholder="Filter by product name...">
+
     <table>
         <caption>Products</caption>
 
@@ -61,6 +63,35 @@
 
     <script>
         const table = document.querySelector('table');
+        const filter = document.querySelector('#filter');
+        const dataset = getDataset();
+
+        filter.addEventListener('keyup', handleKeyup);
+
+        function handleKeyup(event) {
+            const key = event.target.value;
+            const results = applyFilter(key);
+
+            render(results);
+        }
+
+        function applyFilter(key) {
+            return dataset.filter(data => data.name.toLowerCase().includes(key.toLowerCase()));
+        }
+
+        function render(results) {
+            const tbody = table.tBodies[0];
+
+            tbody.innerHTML = results.map(result => {
+                return `
+                    <tr>
+                        <td>${result.name}</td>
+                        <td>${result.description}</td>
+                        <td>${result.price}</td>
+                        <td>${result.stock}</td>
+                    </tr>`;
+            }).join('');
+        }
 
         function getDataset() {
             const rows = table.tBodies[0].rows;
