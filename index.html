@@ -58,5 +58,41 @@
             </tr>
         </tbody>
     </table>
+
+    <script>
+        const table = document.querySelector('table');
+
+        function getDataset() {
+            const rows = table.tBodies[0].rows;
+            const dataset = [];
+
+            for (const row of rows) {
+                const cells = Array.from(row.cells);
+                const data = {};
+
+                cells.forEach((cell, index) => {
+                    if (index === 0) {
+                        data.name = cell.textContent;
+                    }
+
+                    if (index === 1) {
+                        data.description = cell.textContent;
+                    }
+
+                    if (index === 2) {
+                        data.price = cell.textContent;
+                    }
+
+                    if (index === 3) {
+                        data.stock = cell.textContent;
+                    }
+                });
+
+                dataset.push(data);
+            }
+
+            return dataset;
+        }
+    </script>
 </body>
 </html>
