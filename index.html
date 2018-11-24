@@ -7,7 +7,7 @@
     <title>App</title>
 </head>
 <body>
-    <input type="text" id="filter" placeholder="Filter by product name...">
+    <input type="text" id="filter" placeholder="Filter name or description...">
 
     <table>
         <caption>Products</caption>
@@ -76,7 +76,11 @@
         }
 
         function applyFilter(key) {
-            return dataset.filter(data => data.name.toLowerCase().includes(key.toLowerCase()));
+            return dataset.filter(data => {
+                key = key.toLowerCase();
+
+                return data.name.toLowerCase().includes(key) || data.description.toLowerCase().includes(key);
+            });
         }
 
         function render(results) {
